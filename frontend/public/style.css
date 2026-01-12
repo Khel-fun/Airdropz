@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=K2D:wght@100;200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@font-face {
+    font-family: "Urban Stone";
+    src: url("assets/fonts/urban_stone.otf");
+}
+
+@supports (-webkit-touch-callout: none) {
+    .mb-safe {
+        margin-bottom: env(safe-area-inset-bottom);
+    }
+
+    .h-screen {
+        height: -webkit-fill-available;
+    }
+}
+
+@layer utilities {
+    .bg-beige {
+        background-color: #D9C4A4;
+    }
+
+    .text-beige {
+        color: #D9C4A4;
+    }
+
+    .text-tiny {
+        font-size: 0.5rem;
+    }
+}
+
+@media screen and (max-height: 667px) {
+
+    .mt-\[10vh\] {
+        margin-top: 7.8vh;
+    }
+
+    .space-y-2>*+* {
+        margin-top: 0.375rem;
+    }
+}
+
+#root {
+    width: 100vw;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    /* Safe area insets (default fallbacks) */
+    --sat: 0px;
+    --sar: 0px;
+    --sab: 0px;
+    --sal: 0px;
+
+    /* Actual env() variables when available */
+    --safe-area-top: env(safe-area-inset-top, var(--sat));
+    --safe-area-right: env(safe-area-inset-right, var(--sar));
+    --safe-area-bottom: env(safe-area-inset-bottom, var(--sab));
+    --safe-area-left: env(safe-area-inset-left, var(--sal));
+
+    /* iOS-specific variables */
+    --ios-bottom-bar-height: 34px;
+
+    /* Combined spacings for easy use */
+    --padding-bottom: max(20px, var(--safe-area-bottom));
+    --content-bottom: calc(70px + var(--padding-bottom));
+}
+
+/* Prevent vertical overflow on mobile */
+html,
+body {
+    overscroll-behavior-y: none;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #0a0a1a;
+    /* Dark crypto blue */
+    background-image: url('./assets/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    /* Essential for pixel art look */
+    font-family: 'Press Start 2P', "Urban Stone", system-ui, sans-serif;
+    font-feature-settings: 'liga' 0, 'calt' 0;
+}
+
+canvas,
+img {
+    image-rendering: pixelated;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1.1;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.spritePosition {
+    margin: 10px 0 0 10px;
+    font-size: 0.8em;
+}
+
+/* Button styles removed to avoid conflict with React components */
