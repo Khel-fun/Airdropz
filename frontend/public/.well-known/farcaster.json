@@ -1,0 +1,21 @@
+{
+    "accountAssociation": {
+        "header": "PLACEHOLDER_WILL_BE_GENERATED_BY_FARCASTER_TOOL",
+        "payload": "PLACEHOLDER_WILL_BE_GENERATED_BY_FARCASTER_TOOL",
+        "signature": "PLACEHOLDER_WILL_BE_GENERATED_BY_FARCASTER_TOOL"
+    },
+    "miniapp": {
+        "version": "1",
+        "name": "Airdropz Game",
+        "iconUrl": "https://your-domain.com/assets/gem.png",
+        "homeUrl": "https://your-domain.com",
+        "imageUrl": "https://your-domain.com/screenshot.png",
+        "buttonTitle": "Play Game",
+        "splashImageUrl": "https://your-domain.com/assets/gem.png",
+        "splashBackgroundColor": "#000000",
+        "description": "An exciting blockchain-based game on Farcaster",
+        "primaryCategory": "games",
+        "requiredChains": ["eip155:84532"]
+    }
+}
+
