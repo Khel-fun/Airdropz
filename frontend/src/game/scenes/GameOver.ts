@@ -114,20 +114,24 @@ export class GameOver extends Scene {
         container.add(breakdownBg);
 
         // Display coin counts on top of the breakdown background
-        // Calculate responsive positions based on screen dimensions
+        // The breakdown background is 345x166px
         const baseY = 160; // Y position of breakdown background
-        const bgWidth = this.scale.width * 0.85; // Approximate width of breakdown bg
-        const bgHeight = 140; // Approximate height of breakdown bg
+        const bgWidth = breakdownBg.displayWidth; // Actual width scaled to screen
+
+        // Responsive font size
+        const bgScale = Math.min(this.scale.width / 500, 1);
+        const fontSize = Math.max(14, Math.min(16, 16 * bgScale));
 
         // Row 1: Bitcoin (left), Zcash (right)
+        // Positioned below the coin icons in top row
         const bitcoinCount = this.add
             .text(
-                -bgWidth * 0.25,
-                baseY + bgHeight * 0.22,
+                -bgWidth * 0.29,
+                baseY - 15,
                 `${String(this.coinStats.bitcoin || 0).padStart(2, "0")}`,
                 {
                     fontFamily: '"Inclusive Sans"',
-                    fontSize: "18px",
+                    fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
                     fontStyle: "bold",
                 },
@@ -137,12 +141,12 @@ export class GameOver extends Scene {
 
         const zcashCount = this.add
             .text(
-                bgWidth * 0.25,
-                baseY + bgHeight * 0.22,
+                bgWidth * 0.29,
+                baseY - 15,
                 `${String(this.coinStats.zcash || 0).padStart(2, "0")}`,
                 {
                     fontFamily: '"Inclusive Sans"',
-                    fontSize: "18px",
+                    fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
                     fontStyle: "bold",
                 },
@@ -151,14 +155,15 @@ export class GameOver extends Scene {
             .setAlpha(0);
 
         // Row 2: Ethereum (left), USDC (center), Solana (right)
+        // Positioned below the coin icons in bottom row
         const ethereumCount = this.add
             .text(
-                -bgWidth * 0.33,
-                baseY + bgHeight * 0.52,
+                -bgWidth * 0.35,
+                baseY + 48,
                 `${String(this.coinStats.ethereum || 0).padStart(2, "0")}`,
                 {
                     fontFamily: '"Inclusive Sans"',
-                    fontSize: "18px",
+                    fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
                     fontStyle: "bold",
                 },
@@ -169,11 +174,11 @@ export class GameOver extends Scene {
         const usdcCount = this.add
             .text(
                 0,
-                baseY + bgHeight * 0.52,
+                baseY + 48,
                 `${String(this.coinStats.usdc || 0).padStart(2, "0")}`,
                 {
                     fontFamily: '"Inclusive Sans"',
-                    fontSize: "18px",
+                    fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
                     fontStyle: "bold",
                 },
@@ -183,12 +188,12 @@ export class GameOver extends Scene {
 
         const solanaCount = this.add
             .text(
-                bgWidth * 0.33,
-                baseY + bgHeight * 0.52,
+                bgWidth * 0.35,
+                baseY + 48,
                 `${String(this.coinStats.solana || 0).padStart(2, "0")}`,
                 {
                     fontFamily: '"Inclusive Sans"',
-                    fontSize: "18px",
+                    fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
                     fontStyle: "bold",
                 },

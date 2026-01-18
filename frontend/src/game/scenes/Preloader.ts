@@ -52,27 +52,27 @@ export class Preloader extends Scene {
         const loadingIcon = this.add
             .image(
                 this.cameras.main.centerX,
-                this.cameras.main.centerY + 180,
+                this.cameras.main.centerY,
                 "loading-1",
             )
             .setOrigin(0.5)
             .setScale(0.8);
 
         // Add LOADING text below the icon
-        this.add
-            .text(
-                this.cameras.main.centerX,
-                this.cameras.main.centerY + 240,
-                "LOADING",
-                {
-                    fontSize: "25px",
-                    color: "#fff",
-                    fontFamily: "Helvetica Neue Bold, Arial, sans-serif",
-                    letterSpacing: 1,
-                },
-            )
-            .setOrigin(0.5)
-            .setScale(0.8);
+        // this.add
+        //     .text(
+        //         this.cameras.main.centerX,
+        //         this.cameras.main.centerY + 240,
+        //         "LOADING",
+        //         {
+        //             fontSize: "25px",
+        //             color: "#fff",
+        //             fontFamily: "Helvetica Neue Bold, Arial, sans-serif",
+        //             letterSpacing: 1,
+        //         },
+        //     )
+        //     .setOrigin(0.5)
+        //     .setScale(0.8);
 
         // Animate between loading icons
         let currentFrame = 1;
