@@ -20,7 +20,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 
     return (
         <div
-            className={`flex items-center justify-between w-full gap-[74px] px-3 py-2 ${
+            className={`flex items-center justify-between w-full gap-[50px] px-3 py-2 ${
                 isCurrentUser
                     ? "bg-[rgba(255,249,243,0.36)] rounded-lg shadow-[0px_4px_3px_0px_rgba(171,95,28,0.24)]"
                     : ""
@@ -30,7 +30,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
             }}
         >
             {/* Left side: Rank, Profile Image, Username */}
-            <div className="flex items-center gap-2 flex-1">
+            <div className="flex items-center gap-2 flex-1 min-w-0">
                 {/* Rank */}
                 <span
                     className="text-[#211627]"
@@ -68,7 +68,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 
                     {/* Username */}
                     <span
-                        className="text-[#211627] flex-1"
+                        className="text-[#211627] flex-1 truncate"
                         style={{
                             fontFamily: "Kode Mono, monospace",
                             fontSize: "14px",
@@ -83,7 +83,7 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 
             {/* Right side: Score */}
             <span
-                className="text-[#211627] text-right"
+                className="text-[#211627] text-right flex-shrink-0"
                 style={{
                     fontFamily: "Kode Mono, monospace",
                     fontSize: "14px",
@@ -98,3 +98,4 @@ const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
 };
 
 export default LeaderboardRow;
+
