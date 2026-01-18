@@ -202,7 +202,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
         <div
             className="flex flex-col items-center justify-center min-h-screen bg-cover bg-no-repeat w-screen"
             style={{
-                backgroundImage: "url('/assets/popup-bg.png')",
+                backgroundImage: "url('/assets/popup_bg.png')",
                 height: "100dvh",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -226,7 +226,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
             >
                 {/* Close button */}
                 <div
-                    className="absolute top-2 right-2 flex items-center justify-center p-1 cursor-pointer z-10"
+                    className="absolute -top-4 right-2 flex items-center justify-center p-1 cursor-pointer z-10"
                     onClick={() => handleNavigate("menu")}
                 >
                     <svg
@@ -244,17 +244,35 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
 
                 {/* Leaderboard title */}
                 <div
-                    className="text-center pt-8 pb-4 px-4"
-                    style={{ fontFamily: "Kode Mono, monospace" }}
+                    className="text-center pt-8 pb-4 px-4 relative"
+                    style={{ fontFamily: "'Jersey 20', sans-serif" }}
                 >
-                    <h1 className="text-[18px] sm:text-[20px] leading-[1em] tracking-[-0.02em] uppercase relative font-bold">
-                        <span className="absolute top-[1px] left-1/2 transform -translate-x-1/2 text-white">
-                            leader board
-                        </span>
-                        <span className="relative text-[#F10B8B]">
-                            leader board
-                        </span>
-                    </h1>
+                    {/* White shadow layer */}
+                    <div
+                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap absolute left-1/2 transform -translate-x-1/2"
+                        style={{
+                            fontFamily: "'Jersey 20', sans-serif",
+                            fontWeight: 400,
+                            color: "#FFFFFF",
+                            top: "33px",
+                            zIndex: 1,
+                        }}
+                    >
+                        leader board
+                    </div>
+                    {/* Pink main layer */}
+                    <div
+                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap relative"
+                        style={{
+                            fontFamily: "'Jersey 20', sans-serif",
+                            fontWeight: 400,
+                            color: "#F10B8B",
+                            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                            zIndex: 2,
+                        }}
+                    >
+                        leader board
+                    </div>
                 </div>
 
                 {isLoading ? (
@@ -278,7 +296,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
                     </div>
                 ) : (
                     <>
-                        <div className="flex flex-col gap-8 w-[270px] mx-auto">
+                        <div className="flex flex-col gap-8 w-[270px] mx-4">
                             {/* Leaderboard content */}
                             <div className="overflow-hidden">
                                 {/* Top 3 holders section */}

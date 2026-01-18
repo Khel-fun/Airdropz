@@ -291,7 +291,7 @@ const Menu: React.FC<{
                         >
                             {displayName || "..."}
                         </div>
-                        <div className="flex items-center gap-1">
+                        {/* <div className="flex items-center gap-1">
                             <span
                                 style={{
                                     fontFamily: "Kode Mono, monospace",
@@ -328,7 +328,7 @@ const Menu: React.FC<{
                                     </linearGradient>
                                 </defs>
                             </svg>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Profile image */}
@@ -563,18 +563,6 @@ const Menu: React.FC<{
                                 }}
                             >
                                 <div
-                                    className="absolute text-[20px] leading-[1em] tracking-[-0.02em]"
-                                    style={{
-                                        fontFamily: "'Jersey 20', sans-serif",
-                                        fontWeight: 400,
-                                        color: "#83EFDD",
-                                        top: "1px",
-                                        left: "1px",
-                                    }}
-                                >
-                                    cancel
-                                </div>
-                                <div
                                     className="text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{
                                         fontFamily: "'Jersey 20', sans-serif",
@@ -596,18 +584,6 @@ const Menu: React.FC<{
                                     toast.success("Successfully signed out!");
                                 }}
                             >
-                                <div
-                                    className="absolute text-[20px] leading-[1em] tracking-[-0.02em]"
-                                    style={{
-                                        fontFamily: "'Jersey 20', sans-serif",
-                                        fontWeight: 400,
-                                        color: "#FFFFFF",
-                                        top: "1px",
-                                        left: "1px",
-                                    }}
-                                >
-                                    sign out
-                                </div>
                                 <div
                                     className="text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{

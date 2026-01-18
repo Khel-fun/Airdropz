@@ -128,7 +128,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
         <div
             className="flex flex-col items-center justify-center min-h-screen bg-cover bg-no-repeat w-screen"
             style={{
-                backgroundImage: "url('/assets/popup-bg.png')",
+                backgroundImage: "url('/assets/popup_bg.png')",
                 height: "100dvh",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -151,7 +151,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
             >
                 {/* Close button */}
                 <div
-                    className="absolute top-2 right-2 flex items-center justify-center p-1 cursor-pointer z-10"
+                    className="absolute -top-4 right-2 flex items-center justify-center p-1 cursor-pointer z-10"
                     onClick={() => handleNavigate("menu")}
                 >
                     <svg
@@ -169,28 +169,48 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
 
                 {/* Tasks title */}
                 <div
-                    className="text-center pt-12 pb-4 px-4"
-                    style={{ fontFamily: "Kode Mono, monospace" }}
+                    className="text-center pt-12 pb-4 px-4 relative"
+                    style={{ fontFamily: "'Jersey 20', sans-serif" }}
                 >
-                    <h1 className="text-[20px] sm:text-[24px] leading-[1em] tracking-[-0.02em] uppercase relative font-bold">
-                        <span className="absolute top-[2px] left-1/2 transform -translate-x-1/2 text-white">
-                            tasks
-                        </span>
-                        <span className="relative text-[#F10B8B]">tasks</span>
-                    </h1>
+                    {/* White shadow layer */}
+                    <div
+                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] absolute left-1/2 transform -translate-x-1/2"
+                        style={{
+                            fontFamily: "'Jersey 20', sans-serif",
+                            fontWeight: 400,
+                            color: "#FFFFFF",
+                            top: "49px",
+                            zIndex: 1,
+                        }}
+                    >
+                        tasks
+                    </div>
+                    {/* Pink main layer */}
+                    <div
+                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] relative"
+                        style={{
+                            fontFamily: "'Jersey 20', sans-serif",
+                            fontWeight: 400,
+                            color: "#F10B8B",
+                            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                            zIndex: 2,
+                        }}
+                    >
+                        tasks
+                    </div>
                 </div>
 
                 {/* Tasks list */}
                 <div
-                    className="flex flex-col gap-4 px-6 pb-6 overflow-y-auto"
+                    className="flex flex-col gap-3 px-8 pb-6 overflow-y-auto"
                     style={{
                         fontFamily: "Kode Mono, monospace",
                         maxHeight: "calc(100% - 120px)",
                     }}
                 >
                     {/* Task 1: Follow team on X */}
-                    <div className="flex items-center justify-between gap-10">
-                        <div className="flex items-center gap-4 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 flex-1">
                             <div
                                 className="flex-shrink-0"
                                 style={{
@@ -206,28 +226,18 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                     }}
                                 />
                             </div>
-                            <div className="flex items-center gap-1.5 flex-1">
+                            <div className="flex items-center gap-2 flex-1">
                                 <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium">
                                     follow team on
                                 </span>
-                                <div
-                                    className="bg-black rounded-[4px] flex items-center justify-center"
+                                <img
+                                    src="/assets/X.svg"
+                                    alt="X"
                                     style={{
                                         width: "18px",
                                         height: "18px",
-                                        padding: "4px",
                                     }}
-                                >
-                                    <svg
-                                        width="10"
-                                        height="10"
-                                        viewBox="0 0 10 10"
-                                        fill="white"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path d="M5.9 0h2.15L5.26 4.26l3.38 4.47H6L3.92 5.89 1.45 8.73H.29l3.04-3.47L0 0h2.68l1.88 2.49L6.89 0zm-.75 7.85h1.19L2.64 1.23H1.36l3.79 6.62z" />
-                                    </svg>
-                                </div>
+                                />
                             </div>
                         </div>
                         <div
@@ -253,8 +263,8 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     </div>
 
                     {/* Task 2: Follow team on Farcaster (checked) */}
-                    <div className="flex items-center justify-between gap-10">
-                        <div className="flex items-center gap-4 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 flex-1">
                             <div
                                 className="flex-shrink-0 relative"
                                 style={{
@@ -290,27 +300,18 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                     />
                                 </svg>
                             </div>
-                            <div className="flex items-center gap-1.5 flex-1">
+                            <div className="flex items-center gap-2 flex-1">
                                 <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium">
                                     follow team on
                                 </span>
-                                <div
-                                    className="bg-[#9000FF] rounded-[4px] flex items-center justify-center"
+                                <img
+                                    src="/assets/Farcaster.svg"
+                                    alt="Farcaster"
                                     style={{
                                         width: "18px",
                                         height: "18px",
                                     }}
-                                >
-                                    <svg
-                                        width="11"
-                                        height="9"
-                                        viewBox="0 0 11 9"
-                                        fill="white"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path d="M8.21 0C7.31 0 6.55.58 6.16 1.38 5.77.58 5.01 0 4.11 0 2.85 0 1.83 1.02 1.83 2.28c0 .36.08.7.23 1l-.02.02 3.71 5.34L9.33 3.3l-.02-.02c.15-.3.23-.64.23-1C9.54 1.02 8.52 0 8.21 0z" />
-                                    </svg>
-                                </div>
+                                />
                             </div>
                         </div>
                         <div className="flex items-center justify-center p-[3px]">
@@ -333,8 +334,8 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     </div>
 
                     {/* Task 3: Add app to Farcaster */}
-                    <div className="flex items-center justify-between gap-3.5">
-                        <div className="flex items-center gap-4 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 flex-1">
                             <div
                                 className="flex-shrink-0"
                                 style={{
@@ -374,8 +375,8 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     </div>
 
                     {/* Task 4: Cast app on Farcaster */}
-                    <div className="flex items-center justify-between gap-1.5">
-                        <div className="flex items-center gap-4 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 flex-1">
                             <div
                                 className="flex-shrink-0"
                                 style={{
