@@ -333,11 +333,15 @@ const Menu: React.FC<{
 
                     {/* Profile image */}
                     <div
-                        className="rounded"
+                        className="rounded cursor-pointer"
                         style={{
                             width: "45.18px",
                             height: "45.18px",
                             overflow: "hidden",
+                        }}
+                        onClick={() => {
+                            playClickSound();
+                            navigateToScene("profile");
                         }}
                     >
                         <img
@@ -522,36 +526,25 @@ const Menu: React.FC<{
                     onClick={() => setShowLogoutModal(false)}
                 >
                     <div
-                        className="relative flex flex-col items-center gap-7 px-6 py-9"
+                        className="relative flex flex-col items-center justify-center gap-6 px-8 py-8"
                         style={{
-                            width: "267px",
-                            height: "143px",
+                            backgroundImage:
+                                "url('/assets/popups/sign-out-popup.svg')",
+                            backgroundSize: "contain",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                            width: "268px",
+                            height: "144px",
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Background with border effect */}
-                        <div
-                            className="absolute inset-0 rounded-[2px]"
-                            style={{
-                                background:
-                                    "linear-gradient(134.23deg, #F5AA89 0%, #FAD9C4 100%)",
-                                border: "1.64px solid #EBC485",
-                                boxShadow: `
-                                    inset 0px 2px 1.6px 0px rgba(143, 38, 56, 1),
-                                    inset 0px -2px 1.6px 0px rgba(143, 38, 56, 1),
-                                    inset -2px 0px 1.6px 0px rgba(143, 38, 56, 1),
-                                    inset 2px 0px 1.6px 0px rgba(143, 38, 56, 1)
-                                `,
-                            }}
-                        />
-
                         {/* Content */}
                         <div
                             className="relative text-center"
                             style={{
                                 fontFamily: "'Kode Mono', monospace",
-                                fontWeight: 500,
-                                fontSize: "20px",
+                                fontWeight: 600,
+                                fontSize: "16px",
                                 lineHeight: "1.28em",
                                 color: "#211627",
                             }}
@@ -570,7 +563,7 @@ const Menu: React.FC<{
                                 }}
                             >
                                 <div
-                                    className="absolute text-[24px] leading-[1em] tracking-[-0.02em]"
+                                    className="absolute text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{
                                         fontFamily: "'Jersey 20', sans-serif",
                                         fontWeight: 400,
@@ -582,7 +575,7 @@ const Menu: React.FC<{
                                     cancel
                                 </div>
                                 <div
-                                    className="text-[24px] leading-[1em] tracking-[-0.02em]"
+                                    className="text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{
                                         fontFamily: "'Jersey 20', sans-serif",
                                         fontWeight: 400,
@@ -604,7 +597,7 @@ const Menu: React.FC<{
                                 }}
                             >
                                 <div
-                                    className="absolute text-[24px] leading-[1em] tracking-[-0.02em]"
+                                    className="absolute text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{
                                         fontFamily: "'Jersey 20', sans-serif",
                                         fontWeight: 400,
@@ -616,7 +609,7 @@ const Menu: React.FC<{
                                     sign out
                                 </div>
                                 <div
-                                    className="text-[24px] leading-[1em] tracking-[-0.02em]"
+                                    className="text-[20px] leading-[1em] tracking-[-0.02em]"
                                     style={{
                                         fontFamily: "'Jersey 20', sans-serif",
                                         fontWeight: 400,

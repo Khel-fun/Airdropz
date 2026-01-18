@@ -202,7 +202,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
         <div
             className="flex flex-col items-center justify-center min-h-screen bg-cover bg-no-repeat w-screen"
             style={{
-                backgroundImage: "url('/assets/main-menu.png')",
+                backgroundImage: "url('/assets/popup-bg.png')",
                 height: "100dvh",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -214,59 +214,47 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
             ></div>
             <div
                 id="popup-image"
-                className="relative p-4 sm:p-6 w-[92%] max-w-md bg-contain bg-no-repeat bg-center overflow-visible"
+                className="relative w-[90%] max-w-[337px] bg-contain bg-no-repeat bg-center"
                 style={{
-                    backgroundImage: "url('/assets/popup.png')",
-                    height: "80dvh",
+                    backgroundImage:
+                        "url('/assets/popups/leaderboard-popup.svg')",
+                    aspectRatio: "337/693",
+                    maxHeight: "85vh",
                     backgroundSize: "100% 100%",
-                    marginTop: "env(safe-area-inset-top)",
-                    marginBottom: "env(safe-area-inset-bottom)",
                 }}
                 onClick={handlePopupClick}
             >
-                {/* Leaderboard title with shadow effect */}
-                <div className="relative">
-                    {/* Close button */}
-                    <div
-                        className="absolute top-0 right-0 flex items-center justify-center p-[2px] cursor-pointer"
-                        onClick={() => handleNavigate("menu")}
-                        style={{
-                            width: "14px",
-                            height: "14px",
-                        }}
+                {/* Close button */}
+                <div
+                    className="absolute top-2 right-2 flex items-center justify-center p-1 cursor-pointer z-10"
+                    onClick={() => handleNavigate("menu")}
+                >
+                    <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        stroke="#F8F5F7"
+                        strokeWidth="2"
                     >
-                        <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            stroke="#F8F5F7"
-                            strokeWidth="2"
-                        >
-                            <path d="M1 1L9 9M9 1L1 9" />
-                        </svg>
-                    </div>
+                        <path d="M1 1L9 9M9 1L1 9" />
+                    </svg>
+                </div>
 
-                    <div
-                        className="text-center mb-6 mt-[9vh] sm:mt-[12vh]"
-                        style={{ fontFamily: "Jersey 20, sans-serif" }}
-                    >
-                        <h1 className="text-[24px] leading-[1em] tracking-[-0.02em] uppercase relative">
-                            <span
-                                className="absolute top-[1px] left-1/2 transform -translate-x-1/2 text-white"
-                                style={{ textAlign: "center" }}
-                            >
-                                leader board
-                            </span>
-                            <span
-                                className="relative text-[#F10B8B]"
-                                style={{ textAlign: "center" }}
-                            >
-                                leader board
-                            </span>
-                        </h1>
-                    </div>
+                {/* Leaderboard title */}
+                <div
+                    className="text-center pt-8 pb-4 px-4"
+                    style={{ fontFamily: "Kode Mono, monospace" }}
+                >
+                    <h1 className="text-[18px] sm:text-[20px] leading-[1em] tracking-[-0.02em] uppercase relative font-bold">
+                        <span className="absolute top-[1px] left-1/2 transform -translate-x-1/2 text-white">
+                            leader board
+                        </span>
+                        <span className="relative text-[#F10B8B]">
+                            leader board
+                        </span>
+                    </h1>
                 </div>
 
                 {isLoading ? (
@@ -291,18 +279,8 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
                 ) : (
                     <>
                         <div className="flex flex-col gap-8 w-[270px] mx-auto">
-                            {/* Leaderboard background container */}
-                            <div
-                                className="rounded-md overflow-hidden"
-                                style={{
-                                    background:
-                                        "linear-gradient(180deg, #F5AA89 0%, #FAD9C4 100%)",
-                                    border: "2.4px solid #EBC485",
-                                    boxShadow:
-                                        "inset 0px 4px 4.8px 0px rgba(143, 38, 56, 1), inset 0px -4px 4.8px 0px rgba(143, 38, 56, 1), inset -4px 0px 4.8px 0px rgba(143, 38, 56, 1), inset 4px 0px 4.8px 0px rgba(143, 38, 56, 1)",
-                                    padding: "0",
-                                }}
-                            >
+                            {/* Leaderboard content */}
+                            <div className="overflow-hidden">
                                 {/* Top 3 holders section */}
                                 <div className="flex flex-col">
                                     {leaderboard.slice(0, 3).map((entry) => (
@@ -423,38 +401,6 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
                         )}
                     </>
                 )}
-            </div>
-
-            {/* Navigation Icons */}
-            <div className="fixed bottom-0 w-full px-4 pb-safe">
-                <div className="flex justify-around w-full max-w-[400px] mx-auto mb-4">
-                    {[
-                        {
-                            src: "Eonian",
-                            onClick: () => handleNavigate("eonians"),
-                        },
-                        {
-                            src: "Tasks",
-                            onClick: () => handleNavigate("tasks"),
-                        },
-                        {
-                            src: "../tabs-colored/Alchemist",
-                            onClick: () => handleNavigate("profile"),
-                        },
-                    ].map((item) => (
-                        <div
-                            key={item.src}
-                            className="flex flex-col items-center cursor-pointer"
-                            onClick={item.onClick}
-                        >
-                            <img
-                                src={`/assets/tabs-uncolored/${item.src}.png`}
-                                alt={item.src}
-                                className="w-[20vw] max-w-[80px] min-w-[50px] h-auto object-contain"
-                            />
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );
