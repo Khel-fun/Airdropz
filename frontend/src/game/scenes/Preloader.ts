@@ -74,16 +74,31 @@ export class Preloader extends Scene {
         //     .setOrigin(0.5)
         //     .setScale(0.8);
 
-        // Animate between loading icons
+        // Seamless rotating animation with icon cycling
         let currentFrame = 1;
-        this.time.addEvent({
-            delay: 300, // Change icon every 300ms
-            callback: () => {
-                currentFrame = (currentFrame % 4) + 1;
-                loadingIcon.setTexture(`loading-${currentFrame}`);
-            },
-            loop: true,
-        });
+        const rotationDuration = 300; // Duration for 90 degree rotation
+        
+        // Function to create rotation and icon change
+        const rotateAndChange = () => {
+            // Rotate current icon by 90 degrees
+            this.tweens.add({
+                targets: loadingIcon,
+                angle: loadingIcon.angle + 90,
+                duration: rotationDuration,
+                ease: "Linear",
+                onComplete: () => {
+                    // Change to next icon at the end of rotation
+                    currentFrame = (currentFrame % 4) + 1;
+                    loadingIcon.setTexture(`loading-${currentFrame}`);
+                    
+                    // Continue the animation loop
+                    rotateAndChange();
+                }
+            });
+        };
+        
+        // Start the animation
+        rotateAndChange();
     }
 
     preload() {
