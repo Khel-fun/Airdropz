@@ -74,31 +74,16 @@ export class Preloader extends Scene {
         //     .setOrigin(0.5)
         //     .setScale(0.8);
 
-        // Seamless rotating animation with icon cycling
+        // Animate between loading icons
         let currentFrame = 1;
-        const rotationDuration = 300; // Duration for 90 degree rotation
-        
-        // Function to create rotation and icon change
-        const rotateAndChange = () => {
-            // Rotate current icon by 90 degrees
-            this.tweens.add({
-                targets: loadingIcon,
-                angle: loadingIcon.angle + 90,
-                duration: rotationDuration,
-                ease: "Linear",
-                onComplete: () => {
-                    // Change to next icon at the end of rotation
-                    currentFrame = (currentFrame % 4) + 1;
-                    loadingIcon.setTexture(`loading-${currentFrame}`);
-                    
-                    // Continue the animation loop
-                    rotateAndChange();
-                }
-            });
-        };
-        
-        // Start the animation
-        rotateAndChange();
+        this.time.addEvent({
+            delay: 300, // Change icon every 300ms
+            callback: () => {
+                currentFrame = (currentFrame % 4) + 1;
+                loadingIcon.setTexture(`loading-${currentFrame}`);
+            },
+            loop: true,
+        });
     }
 
     preload() {
@@ -127,13 +112,11 @@ export class Preloader extends Scene {
         this.load.svg("play-again-button", "play-again-button.svg");
 
         // Coin images
-        this.load.image("bitcoin", "coins/bitcoin.png");
-        this.load.image("ethereum", "coins/ethereum.png");
-        this.load.image("usdc", "coins/usdc.png");
-        this.load.image("solana", "coins/solana.png");
-        this.load.image("zcash", "coins/zcash.png");
-        this.load.image("profile-img", "coins/profile-img.png");
-
+        this.load.svg("bitcoin", "coins/bitcoin.svg");
+        this.load.svg("ethereum", "coins/ethereum.svg");
+        this.load.svg("usdc", "coins/usdc.svg");
+        this.load.svg("solana", "coins/solana.svg");
+        this.load.svg("zcash", "coins/zcash.svg");
         this.load.image("market", "tabs-colored/Market.png");
         this.load.image("eonians", "tabs-colored/Eonian.png");
         this.load.image("tasks", "tabs-colored/Tasks.png");
@@ -150,14 +133,13 @@ export class Preloader extends Scene {
         this.load.svg("Common3", "Common3.svg");
 
         this.load.svg("Rare1", "Rare1.svg");
-
         this.load.svg("Superrare1", "Superrare.svg");
 
-        this.load.image("speed_booster", "speed_booster.svg");
-        this.load.image("slower_ingredient", "slower_ingredient.svg");
-        this.load.image("magnet", "magnet.svg");
-        this.load.image("shield", "shield.svg");
-        this.load.image("double_points", "double_points.svg");
+        this.load.svg("speed_booster", "speed_booster.svg");
+        this.load.svg("slower_ingredient", "slower_ingredient.svg");
+        this.load.svg("magnet", "magnet.svg");
+        this.load.svg("shield", "shield.svg");
+        this.load.svg("double_points", "double_points.svg");
 
         // Load UI assets
         this.load.image("score_bar", "score_bar.svg");
