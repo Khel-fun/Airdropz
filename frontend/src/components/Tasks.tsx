@@ -82,15 +82,71 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
         }
     };
 
+    // Task completion state
+    const [completedTasks, setCompletedTasks] = useState<{
+        followX: boolean;
+        followFarcaster: boolean;
+        addToFarcaster: boolean;
+        castOnFarcaster: boolean;
+    }>(() => {
+        // Load from localStorage on initial render
+        const saved = localStorage.getItem("airdropz_completed_tasks");
+        if (saved) {
+            try {
+                return JSON.parse(saved);
+            } catch (e) {
+                console.error("Error parsing saved tasks:", e);
+            }
+        }
+        return {
+            followX: false,
+            followFarcaster: false,
+            addToFarcaster: false,
+            castOnFarcaster: false,
+        };
+    });
+
+    // Save to localStorage whenever completedTasks changes
+    useEffect(() => {
+        localStorage.setItem(
+            "airdropz_completed_tasks",
+            JSON.stringify(completedTasks),
+        );
+    }, [completedTasks]);
+
     const handleFollowOnX = () => {
-        window.open("https://x.com/eoniangame", "_blank");
+        window.open("https://x.com/Kheldotfun", "_blank");
+        setCompletedTasks((prev) => ({ ...prev, followX: true }));
+    };
+
+    const handleFollowOnFarcaster = () => {
+        window.open("https://farcaster.xyz/zunno", "_blank");
+        setCompletedTasks((prev) => ({ ...prev, followFarcaster: true }));
+    };
+
+    const handleAddToFarcaster = () => {
+        // TODO: Add actual Farcaster app link when available
+        window.open("https://warpcast.com/", "_blank");
+        setCompletedTasks((prev) => ({ ...prev, addToFarcaster: true }));
+    };
+
+    const handleCastOnFarcaster = () => {
+        // TODO: Add actual cast link when available
+        const castText = encodeURIComponent(
+            "Check out Airdropz - an amazing blockchain game! 🎮",
+        );
+        window.open(
+            `https://warpcast.com/~/compose?text=${castText}`,
+            "_blank",
+        );
+        setCompletedTasks((prev) => ({ ...prev, castOnFarcaster: true }));
     };
 
     const handleShare = async () => {
         // Share data
         const shareData = {
-            title: "Eonian",
-            text: "Check out Eonian - an amazing blockchain game!",
+            title: "Airdropz",
+            text: "Check out Airdropz - an amazing blockchain game!",
             url: window.location.href,
         };
 
@@ -212,7 +268,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 flex-1">
                             <div
-                                className="flex-shrink-0"
+                                className="flex-shrink-0 relative"
                                 style={{
                                     width: "18px",
                                     height: "18px",
@@ -225,6 +281,28 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                             "inset 2px 2px 1.2px -1px rgba(143, 38, 56, 0.25)",
                                     }}
                                 />
+                                {completedTasks.followX && (
+                                    <svg
+                                        width="14"
+                                        height="13"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="#1B8110"
+                                        strokeWidth="2"
+                                        style={{
+                                            position: "absolute",
+                                            top: "3px",
+                                            left: "4px",
+                                        }}
+                                    >
+                                        <path
+                                            d="M1 6L5 10L13 1"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                )}
                             </div>
                             <div className="flex items-center gap-2 flex-1">
                                 <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium">
@@ -262,7 +340,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                         </div>
                     </div>
 
-                    {/* Task 2: Follow team on Farcaster (checked) */}
+                    {/* Task 2: Follow team on Farcaster */}
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 flex-1">
                             <div
@@ -279,26 +357,28 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                             "inset 2px 2px 1.2px -1px rgba(143, 38, 56, 0.25)",
                                     }}
                                 />
-                                <svg
-                                    width="14"
-                                    height="13"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    stroke="#1B8110"
-                                    strokeWidth="2"
-                                    style={{
-                                        position: "absolute",
-                                        top: "3px",
-                                        left: "4px",
-                                    }}
-                                >
-                                    <path
-                                        d="M1 6L5 10L13 1"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
+                                {completedTasks.followFarcaster && (
+                                    <svg
+                                        width="14"
+                                        height="13"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="#1B8110"
+                                        strokeWidth="2"
+                                        style={{
+                                            position: "absolute",
+                                            top: "3px",
+                                            left: "4px",
+                                        }}
+                                    >
+                                        <path
+                                            d="M1 6L5 10L13 1"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                )}
                             </div>
                             <div className="flex items-center gap-2 flex-1">
                                 <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium">
@@ -314,7 +394,10 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center justify-center p-[3px]">
+                        <div
+                            className="flex items-center justify-center p-[3px] cursor-pointer"
+                            onClick={handleFollowOnFarcaster}
+                        >
                             <svg
                                 width="20"
                                 height="20"
@@ -337,7 +420,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 flex-1">
                             <div
-                                className="flex-shrink-0"
+                                className="flex-shrink-0 relative"
                                 style={{
                                     width: "18px",
                                     height: "18px",
@@ -350,12 +433,37 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                             "inset 2px 2px 1.2px -1px rgba(143, 38, 56, 0.25)",
                                     }}
                                 />
+                                {completedTasks.addToFarcaster && (
+                                    <svg
+                                        width="14"
+                                        height="13"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="#1B8110"
+                                        strokeWidth="2"
+                                        style={{
+                                            position: "absolute",
+                                            top: "3px",
+                                            left: "4px",
+                                        }}
+                                    >
+                                        <path
+                                            d="M1 6L5 10L13 1"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                )}
                             </div>
                             <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium flex-1">
                                 add app to Farcaster
                             </span>
                         </div>
-                        <div className="flex items-center justify-center p-[3px]">
+                        <div
+                            className="flex items-center justify-center p-[3px] cursor-pointer"
+                            onClick={handleAddToFarcaster}
+                        >
                             <svg
                                 width="20"
                                 height="20"
@@ -378,7 +486,7 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3 flex-1">
                             <div
-                                className="flex-shrink-0"
+                                className="flex-shrink-0 relative"
                                 style={{
                                     width: "18px",
                                     height: "18px",
@@ -391,12 +499,37 @@ const Tasks: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                             "inset 2px 2px 1.2px -1px rgba(143, 38, 56, 0.25)",
                                     }}
                                 />
+                                {completedTasks.castOnFarcaster && (
+                                    <svg
+                                        width="14"
+                                        height="13"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="#1B8110"
+                                        strokeWidth="2"
+                                        style={{
+                                            position: "absolute",
+                                            top: "3px",
+                                            left: "4px",
+                                        }}
+                                    >
+                                        <path
+                                            d="M1 6L5 10L13 1"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                )}
                             </div>
                             <span className="text-[#211627] text-[14px] leading-[1.28em] font-medium flex-1">
                                 cast app on Farcaster
                             </span>
                         </div>
-                        <div className="flex items-center justify-center p-[3px]">
+                        <div
+                            className="flex items-center justify-center p-[3px] cursor-pointer"
+                            onClick={handleCastOnFarcaster}
+                        >
                             <svg
                                 width="20"
                                 height="20"
