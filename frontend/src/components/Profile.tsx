@@ -7,6 +7,7 @@ import ButtonSmall from "./buttons/button_small";
 import useTelegramClient from "../hooks/telegram-client";
 import ButtonGreenSmall from "./buttons/button_green_small";
 import { toast } from "react-toastify";
+import { sdk } from "@farcaster/miniapp-sdk";
 
 const { abi } = HomeGameplayManager;
 
@@ -25,6 +26,10 @@ const Profile: React.FC<{ navigateToScene: (scene: string) => void }> = ({
     const { disconnect } = useDisconnect();
     const [playerState, setPlayerState] = useState<PlayerState | null>(null);
     const [showLogoutModal, setShowLogoutModal] = useState<boolean>(false);
+    const [displayName, setDisplayName] = useState<string>("");
+    const [profilePicUrl, setProfilePicUrl] = useState<string>(
+        "/assets/profile-img.png",
+    );
 
     const clickSound = useRef<HTMLAudioElement | null>(null);
 
@@ -64,6 +69,44 @@ const Profile: React.FC<{ navigateToScene: (scene: string) => void }> = ({
 
         toast.info("Wallet disconnected");
     };
+
+    // Fetch username and profile picture from Farcaster context
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                // Get Farcaster context which includes user info
+                const context = await sdk.context;
+
+                if (context?.user) {
+                    // Username is directly available in context!
+                    if (context.user.username) {
+                        setDisplayName(`@${context.user.username}`);
+                    }
+
+                    // Profile picture URL is also available!
+                    if (context.user.pfpUrl) {
+                        setProfilePicUrl(context.user.pfpUrl);
+                    }
+                    return;
+                }
+            } catch (error) {
+                // Not in Farcaster context
+                console.log("Not in Farcaster context");
+            }
+
+            // Fallback to shortened wallet address
+            if (address) {
+                const shortened = truncateAddress(address);
+                setDisplayName(shortened);
+                // Keep default profile image
+                setProfilePicUrl("/assets/profile-img.png");
+            }
+        };
+
+        if (address) {
+            fetchUserData();
+        }
+    }, [address]);
 
     useEffect(() => {
         const fetchPlayerState = async () => {
@@ -158,14 +201,17 @@ const Profile: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                     style={{
                                         width: "40px",
                                         height: "40px",
-                                       
                                     }}
                                 >
-                                    <div
-                                        className="w-full h-full bg-cover bg-center"
-                                        style={{
-                                            backgroundImage: `url(/assets/profile-img.png)`,
-                                           
+                                    <img
+                                        src={profilePicUrl}
+                                        alt="Profile"
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            // Fallback to default image if Farcaster image fails to load
+                                            const target =
+                                                e.target as HTMLImageElement;
+                                            target.src = "/assets/profile-img.png";
                                         }}
                                     />
                                 </div>
@@ -181,9 +227,7 @@ const Profile: React.FC<{ navigateToScene: (scene: string) => void }> = ({
                                             fontWeight: 600,
                                         }}
                                     >
-                                        {address
-                                            ? truncateAddress(address)
-                                            : "0x74gt...7h8"}
+                                        {displayName || (address ? truncateAddress(address) : "0x74gt...7h8")}
                                     </span>
                                 </div>
                             </div>
