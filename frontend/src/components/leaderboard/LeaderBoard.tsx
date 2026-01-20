@@ -249,7 +249,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
                 >
                     {/* White shadow layer */}
                     <div
-                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap absolute left-1/2 transform -translate-x-1/2"
+                        className="text-center pr-12 text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap absolute left-1/2 transform -translate-x-1/2"
                         style={{
                             fontFamily: "'Jersey 20', sans-serif",
                             fontWeight: 400,
@@ -262,7 +262,7 @@ const LeaderBoard: React.FC<LeaderBoardType> = ({
                     </div>
                     {/* Pink main layer */}
                     <div
-                        className="text-center text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap relative"
+                        className="text-center pr-12 text-[24px] leading-[1em] tracking-[-0.02em] whitespace-nowrap relative"
                         style={{
                             fontFamily: "'Jersey 20', sans-serif",
                             fontWeight: 400,
