@@ -76,7 +76,7 @@ export class GameOver extends Scene {
 
         // Score text displayed on top of score.png in brown color
         const scoreText = this.add
-            .text(0, 5, `${this.finalScore}`, {
+            .text(0, -4.3, `${this.finalScore}`, {
                 fontFamily: '"Jersey 25", "Jersey 20"',
                 fontSize: "40px",
                 color: "#90392E",
@@ -139,7 +139,7 @@ export class GameOver extends Scene {
                     fontFamily: '"Inclusive Sans"',
                     fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
-                    fontStyle: "bold",
+                    fontStyle: "normal",
                 },
             )
             .setOrigin(0.5)
@@ -154,7 +154,7 @@ export class GameOver extends Scene {
                     fontFamily: '"Inclusive Sans"',
                     fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
-                    fontStyle: "bold",
+                    fontStyle: "normal",
                 },
             )
             .setOrigin(0.5)
@@ -171,7 +171,7 @@ export class GameOver extends Scene {
                     fontFamily: '"Inclusive Sans"',
                     fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
-                    fontStyle: "bold",
+                    fontStyle: "normal",
                 },
             )
             .setOrigin(0.5)
@@ -186,7 +186,7 @@ export class GameOver extends Scene {
                     fontFamily: '"Inclusive Sans"',
                     fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
-                    fontStyle: "bold",
+                    fontStyle: "normal",
                 },
             )
             .setOrigin(0.5)
@@ -201,7 +201,7 @@ export class GameOver extends Scene {
                     fontFamily: '"Inclusive Sans"',
                     fontSize: `${fontSize}px`,
                     color: "#FFFFFF",
-                    fontStyle: "bold",
+                    fontStyle: "normal",
                 },
             )
             .setOrigin(0.5)
