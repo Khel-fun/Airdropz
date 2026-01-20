@@ -20,6 +20,7 @@ import {
 import { useAccount, useDisconnect } from "wagmi";
 import LeaderBoard from "./components/leaderboard/LeaderBoard";
 import { sdk } from "@farcaster/miniapp-sdk";
+import InitialLoading from "./components/InitialLoading";
 
 function App() {
     // The sprite can only be moved in the MainMenu Scene
@@ -28,6 +29,7 @@ function App() {
     const [displayScene, setDisplayScene] = useState("menu");
     const { address } = useAccount();
     const { disconnect } = useDisconnect();
+    const [isInitialLoading, setIsInitialLoading] = useState(true);
 
     //  References to the PhaserGame component (game and scene are exposed)
     const phaserRef = useRef<IRefPhaserGame | null>(null);
@@ -38,6 +40,46 @@ function App() {
     // Initialize analytics once when the app loads
     useEffect(() => {
         initAnalytics();
+    }, []);
+
+    // Handle initial loading - preload assets and show loading screen
+    useEffect(() => {
+        const loadAssets = async () => {
+            const minLoadTime = 2000; // Minimum 2 seconds loading
+            const startTime = Date.now();
+
+            // Preload critical images
+            const imagesToPreload = [
+                "/assets/login_bg.png",
+                "/assets/loading/loading-1.svg",
+                "/assets/loading/loading-2.svg",
+                "/assets/loading/loading-3.svg",
+                "/assets/loading/loading-4.svg",
+            ];
+
+            const imagePromises = imagesToPreload.map((src) => {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = resolve;
+                    img.onerror = resolve; // Resolve even on error to not block loading
+                    img.src = src;
+                });
+            });
+
+            await Promise.all(imagePromises);
+
+            // Ensure minimum loading time for smooth UX
+            const elapsedTime = Date.now() - startTime;
+            if (elapsedTime < minLoadTime) {
+                await new Promise((resolve) =>
+                    setTimeout(resolve, minLoadTime - elapsedTime),
+                );
+            }
+
+            setIsInitialLoading(false);
+        };
+
+        loadAssets();
     }, []);
 
     // Initialize Farcaster Mini App SDK
@@ -303,7 +345,9 @@ function App() {
     return (
         <div id="app" onClick={handleUserInteraction}>
             <GameScoreManager />
-            {!isLoggedIn ? (
+            {isInitialLoading ? (
+                <InitialLoading />
+            ) : !isLoggedIn ? (
                 <LoginPage />
             ) : (
                 <>
