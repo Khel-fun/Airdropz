@@ -46,6 +46,9 @@ const Menu: React.FC<{
     const [playerState, setPlayerState] = React.useState<any>(null);
     const [replenishTimeLeft, setReplenishTimeLeft] = React.useState<number>(0);
     const [displayName, setDisplayName] = React.useState<string>("");
+    const [profilePicUrl, setProfilePicUrl] = React.useState<string>(
+        "/assets/profile-img.png",
+    );
     const [showLogoutModal, setShowLogoutModal] =
         React.useState<boolean>(false);
 
@@ -77,16 +80,23 @@ const Menu: React.FC<{
         navigateToScene(scene);
     };
 
-    // Fetch username from Farcaster context
+    // Fetch username and profile picture from Farcaster context
     useEffect(() => {
-        const fetchUsername = async () => {
+        const fetchUserData = async () => {
             try {
                 // Get Farcaster context which includes user info
                 const context = await sdk.context;
 
-                if (context?.user?.username) {
+                if (context?.user) {
                     // Username is directly available in context!
-                    setDisplayName(`@${context.user.username}`);
+                    if (context.user.username) {
+                        setDisplayName(`@${context.user.username}`);
+                    }
+
+                    // Profile picture URL is also available!
+                    if (context.user.pfpUrl) {
+                        setProfilePicUrl(context.user.pfpUrl);
+                    }
                     return;
                 }
             } catch (error) {
@@ -98,11 +108,13 @@ const Menu: React.FC<{
             if (address) {
                 const shortened = `${address.slice(0, 6)}...${address.slice(-4)}`;
                 setDisplayName(shortened);
+                // Keep default profile image
+                setProfilePicUrl("/assets/profile-img.png");
             }
         };
 
         if (address) {
-            fetchUsername();
+            fetchUserData();
         }
     }, [address]);
 
@@ -345,12 +357,17 @@ const Menu: React.FC<{
                         }}
                     >
                         <img
-                            src="/assets/profile-img.png"
+                            src={profilePicUrl}
                             alt="Profile"
                             style={{
                                 width: "100%",
                                 height: "100%",
                                 objectFit: "cover",
+                            }}
+                            onError={(e) => {
+                                // Fallback to default image if Farcaster image fails to load
+                                const target = e.target as HTMLImageElement;
+                                target.src = "/assets/profile-img.png";
                             }}
                         />
                     </div>
