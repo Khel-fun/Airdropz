@@ -143,6 +143,7 @@ export class Preloader extends Scene {
 
         // Load UI assets
         this.load.image("score_bar", "score_bar.svg");
+        this.load.image("timer_bar", "timer_bar.png");
 
         // Load sound assets
         this.load.audio("click", "music/click_.wav");

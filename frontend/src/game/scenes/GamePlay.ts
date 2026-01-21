@@ -373,19 +373,19 @@ export class GamePlay extends Scene {
 
     private createUI() {
         // Add score bar background in top right corner
-        const scoreBarX = this.cameras.main.width - 50;
-        const scoreBarY = 30;
+        const scoreBarX = this.cameras.main.width - 35;
+        const scoreBarY = 38;
 
         this.scoreBarBg = this.add
             .image(scoreBarX, scoreBarY, "score_bar")
             .setOrigin(1, 0.5)
-            .setScale(1.2)
+            .setScale(1.3)
             .setDepth(100);
 
         // Position score text on top of the score bar
         this.scoreText = this.add
             .text(scoreBarX - 50, scoreBarY, "0", {
-                fontSize: "14px",
+                fontSize: "15px",
                 color: "#90392E",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontStyle: "bold",
@@ -598,10 +598,14 @@ export class GamePlay extends Scene {
             // Decrease remaining time (convert delta from ms to seconds)
             powerUp.remainingTime -= delta / 1000;
 
+            // Format timer as MM:SS
+            const totalSeconds = Math.ceil(powerUp.remainingTime);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const timeString = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
             // Update timer text
-            powerUp.timerText.setText(
-                Math.ceil(powerUp.remainingTime).toString(),
-            );
+            powerUp.timerText.setText(timeString);
 
             // Check if power-up has expired
             if (powerUp.remainingTime <= 0) {
@@ -806,32 +810,39 @@ export class GamePlay extends Scene {
         }
 
         // Create UI element for the power-up - positioned for top right corner
-        // const yPos = this.activePowerUps.length * 1500;
+        // Power-up icon aligned with score bar margin, timer bar to its left
 
-        // Add background rectangle for better visibility
-        const bg = this.add
-            .rectangle(-15, 48, 70, 30, 0x000000, 0.5)
-            .setOrigin(1, 0.5);
+        // Create timer bar background (to the left of power-up icon, no gap)
+        const timerBar = this.add
+            .image(-78.5, 38, "timer_bar")
+            .setDisplaySize(55, 28)
+            .setOrigin(0.5, 0.5);
 
-        const icon = this.add
-            .image(-60, 48, this.powerUpTypes[type])
-            .setDisplaySize(40, 40)
-            .setOrigin(1, 0.5);
+        // Format timer as MM:SS
+        const minutes = Math.floor(duration / 60);
+        const seconds = duration % 60;
+        const timeString = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
+        // Create timer text inside the timer bar
         const timerText = this.add
-            .text(-15, 48, duration.toString(), {
-                fontSize: "20px",
-                color: "#ffffff",
+            .text(-78.5, 38, timeString, {
+                fontSize: "11px",
+                color: "#000000",
                 fontFamily: "Helvetica, Arial, sans-serif",
-                stroke: "#000000",
-                strokeThickness: 4,
+                fontStyle: "bold",
             })
-            .setOrigin(1, 0.5);
+            .setOrigin(0.5, 0.5);
+
+        // Create power-up icon aligned with score bar margin (35px from right)
+        const icon = this.add
+            .image(-35, 38, this.powerUpTypes[type])
+            .setDisplaySize(32, 32)
+            .setOrigin(0.5, 0.5);
 
         // Add to the power-up container
-        this.powerUpContainer.add(bg);
-        this.powerUpContainer.add(icon);
+        this.powerUpContainer.add(timerBar);
         this.powerUpContainer.add(timerText);
+        this.powerUpContainer.add(icon);
 
         // Add to active power-ups
         this.activePowerUps.push({
@@ -843,7 +854,7 @@ export class GamePlay extends Scene {
                 type === PowerUpType.SPEED_BOOSTER &&
                 this._pendingSpeedBoostEffect
                     ? this._pendingSpeedBoostEffect
-                    : bg, // Use the pending effect for speed booster, otherwise bg
+                    : timerBar, // Use the pending effect for speed booster, otherwise timer bar
         });
 
         if (
@@ -1051,13 +1062,14 @@ export class GamePlay extends Scene {
             powerUp.timerText.destroy();
         }
 
-        // Find and remove the background rectangle
+        // Find and remove the timer bar
         const children = this.powerUpContainer.getAll();
         for (let i = 0; i < children.length; i++) {
             const child = children[i];
             if (
-                child instanceof Phaser.GameObjects.Rectangle &&
-                Math.abs(child.y - powerUp.icon.y) < 1
+                child instanceof Phaser.GameObjects.Image &&
+                child.texture.key === "timer_bar" &&
+                Math.abs(child.y - 38) < 1
             ) {
                 this.powerUpContainer.remove(child, true);
                 child.destroy();
