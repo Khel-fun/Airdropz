@@ -503,7 +503,7 @@ const Menu: React.FC<{
                     {/* Info */}
                     <div
                         className="relative cursor-pointer"
-                        onClick={() => handleNavigate("profile")}
+                        onClick={() => handleNavigate("info")}
                     >
                         <div
                             className="text-center text-[24px] leading-[1em] tracking-[-0.02em] absolute"

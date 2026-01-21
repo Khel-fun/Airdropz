@@ -6,6 +6,7 @@ import { useWalletContext } from "./context/WalletContext";
 import Loading from "./components/Loading";
 import Menu from "./components/Menu";
 import Profile from "./components/Profile";
+import InfoPopup from "./components/InfoPopup";
 import Eonians from "./components/Eonains";
 import { EventBus } from "./game/EventBus";
 import GameScoreManager from "./components/manager/GameScoreManager";
@@ -360,6 +361,9 @@ function App() {
                     )}
                     {displayScene === "profile" && (
                         <Profile navigateToScene={navigateToScene} />
+                    )}
+                    {displayScene === "info" && (
+                        <InfoPopup navigateToScene={navigateToScene} />
                     )}
                     {displayScene === "tasks" && (
                         <Tasks navigateToScene={navigateToScene} />
